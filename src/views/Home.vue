@@ -1,8 +1,17 @@
 <script setup>
+import html2pdf from "html2pdf.js";
+const exportToPDF = () => {
+  html2pdf(document.getElementById("element-to-convert"), {
+        margin: 0,
+        html2canvas:  { scale: 1 },
+        image:        { type: 'jpeg', quality: 2 },
+        filename: "YuraKorobeynikResume.pdf",
+      });
+    };
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" ref="document" id="element-to-convert">
     <div class="left-item">
       <div class="photo"></div>
       <div class="about">
@@ -46,7 +55,7 @@
     <div class="right-item">
       <div class="title">Yura Korobeynik</div>
       <div class="description">Middle+ Frontend Developer</div>
-
+      <button id="download" @click="exportToPDF">Download</button>
       <div class="experience">
         <div class="experience-title"><span>Work Experience</span></div>
         
@@ -123,19 +132,35 @@
   display: flex;
   max-width: 900px;
   background: #000;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   padding: 0 50px;
   color: white;
+  #download {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    &:hover {
+      cursor: pointer;
+    }
+    }
   .right-item {
+    position: relative;
     width: 50%;
-    height: 100vh;
-    padding: 50px 50px;
+    padding: 40px 50px;
+    padding-bottom: 20px;
+    position: relative;
     .description {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       color: #a6a6a6;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
     .experience-title {
       font-size: 18px;
@@ -162,7 +187,7 @@
       }
     }
     .title {
-      font-size: 35px;
+      font-size: 30px;
       color: white;
       font-weight: bold;
     }
@@ -186,7 +211,6 @@
   }
   .left-item {
     width: 50%;
-    height: 100vh;
     background: darkblue;
     .l-item {
       margin-bottom: 20px;
